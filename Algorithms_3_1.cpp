@@ -60,6 +60,29 @@ void quick_sort(std::vector<int>* vector)
 {
     if (!vector || vector->size() <= 1)
         return;
+
+    int pivot = (*vector)[vector->size() / 2];
+    std::vector<int> left, right;
+
+    for (int i = 0; i < vector->size(); ++i)
+    {
+        if (i == vector->size() / 2)
+            continue;
+        if ((*vector)[i] <= pivot)
+            left.push_back((*vector)[i]);
+        else
+            right.push_back((*vector)[i]);
+    }
+
+    quick_sort(&left);
+    quick_sort(&right);
+
+    int index = 0;
+    for (const auto& elem : left)
+        (*vector)[index++] = elem;
+    (*vector)[index++] = pivot;
+    for (const auto& elem : right)
+        (*vector)[index++] = elem;
 }
 
 void count_sort(std::vector<int>* vector)
